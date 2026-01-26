@@ -4,18 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class Korisnik extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory;
 
     protected $table = 'korisniks';
 
     protected $fillable = [
-        'name',
+        'ime',
         'email',
         'password',
-        'role'
+        'tip_korisnika'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     public function pokusaji()
