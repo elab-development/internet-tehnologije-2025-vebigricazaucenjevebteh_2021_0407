@@ -18,4 +18,9 @@ class HTMLBlock extends Model
             'nivo_h_t_m_l_blocks'
         );
     }
+    public function nivoHTMLBlokovi()
+{
+    return $this->hasMany(NivoHTMLBlock::class);
+}
+
 }

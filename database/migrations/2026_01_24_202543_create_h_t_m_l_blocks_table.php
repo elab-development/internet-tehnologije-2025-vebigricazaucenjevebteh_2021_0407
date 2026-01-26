@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('h_t_m_l_blocks', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        $table->id();
+        $table->foreignId('nivo_id')->constrained('nivos')->onDelete('cascade');
+        $table->foreignId('html_block_id')->constrained('h_t_m_l_blocks')->onDelete('cascade');
+        $table->boolean('obaveznost');
+        $table->integer('redosled');
+        $table->timestamps();
         });
     }
 
