@@ -16,16 +16,14 @@ class Nivo extends Model
         return $this->hasMany(Pokusaj::class);
     }
 
-    public function htmlBlokovi()
-    {
-        return $this->belongsToMany(
-            HTMLBlock::class,
-            'nivo_h_t_m_l_blocks'
-        );
-    }
     public function nivoHTMLBlokovi()
-{
-    return $this->hasMany(NivoHTMLBlock::class);
-}
+    {
+        return $this->hasMany(NivoHTMLBlock::class);
+    }
+
+    public function rezultati()
+    {
+        return $this->hasMany(Rezultat::class);
+    }
 
 }

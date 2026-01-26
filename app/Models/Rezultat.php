@@ -15,6 +15,11 @@ class Rezultat extends Model
         'uspesno'
     ];
 
+    public function korisnik()
+    {
+        return $this->belongsTo(Korisnik::class);
+    }
+
     public function pokusaj()
     {
         return $this->belongsTo(Pokusaj::class);
