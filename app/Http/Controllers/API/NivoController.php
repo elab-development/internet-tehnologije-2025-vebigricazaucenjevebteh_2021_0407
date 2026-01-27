@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Nivo;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class NivoController extends Controller
 {
@@ -21,7 +22,8 @@ class NivoController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    try {
         $validated = $request->validate([
             'naziv' => 'required|string|max:255',
             'opis' => 'nullable|string',
@@ -30,7 +32,14 @@ class NivoController extends Controller
 
         $nivo = Nivo::create($validated);
         return response()->json($nivo, 201);
+
+    } catch (ValidationException $e) {
+        return response()->json([
+            'message' => 'Validation failed',
+            'errors' => $e->errors(),
+        ], 422);
     }
+}
 
     public function update(Request $request, $id)
     {
