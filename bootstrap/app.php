@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ]);
     $middleware->alias([
         'role' => \App\Http\Middleware\CheckRole::class,
+        'tip' => \App\Http\Middleware\TipKorisnikaMiddleware::class,
     ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

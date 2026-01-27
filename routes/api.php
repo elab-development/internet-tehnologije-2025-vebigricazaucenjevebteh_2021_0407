@@ -17,7 +17,7 @@ Route::get('/html-blocks/{id}', [HTMLBlockController::class, 'show']);
 Route::get('/leaderboard', [RezultatController::class, 'leaderboard']);
 
 // PROTECTED (registrovani/editor/admin)
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'tip:admin'])->group(function () {
     // Nivo CRUD
     Route::post('/nivoi', [NivoController::class, 'store']);
     Route::put('/nivoi/{id}', [NivoController::class, 'update']);
@@ -48,6 +48,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/rezultati', [RezultatController::class, 'store']);
     Route::put('/rezultati/{id}', [RezultatController::class, 'update']);
     Route::delete('/rezultati/{id}', [RezultatController::class, 'destroy']);
+
+    Route::get('/rezultati', [RezultatController::class, 'index']);
+    Route::get('/leaderboard', [RezultatController::class, 'leaderboard']);
 });
 
 Route::prefix('auth')->group(function () {
