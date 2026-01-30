@@ -22,3 +22,7 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Frontend (React / Vite)
+html-builder-frontend/node_modules
+html-builder-frontend/dist
+
