@@ -1,0 +1,54 @@
+:root{
+  --bg:#0b1020;
+  --panel:#121a33;
+  --text:#e9efff;
+  --accent:#57c7ff;
+  --accent2:#7c5cff;
+}
+body{
+    margin:0;
+    font-family:system-ui;
+    background:radial-gradient(900px 600px at 20% 10%, #15204a 0%, var(--bg) 55%);
+    color:var(--text);
+}
+.cardx{
+    background:linear-gradient(180deg, rgba(18,26,51,.9), rgba(18,26,51,.65));
+    border:1px solid rgba(87,199,255,.18);
+    border-radius:16px;
+    padding:16px;
+    box-shadow:0 0 0 1px rgba(124,92,255,.10), 0 12px 40px rgba(0,0,0,.35);
+}
+.cardx-title{
+    margin:0 0 6px;
+}
+.cardx-subtitle{
+    margin:0 0 12px;
+    opacity:.8;
+}
+.input{
+    width:100%;
+    padding:10px 12px;
+    border-radius:12px;
+    border:1px solid rgba(87,199,255,.25);
+    background:rgba(9,12,24,.6);
+    color:var(--text);
+}
+.label{
+    display:block;
+    margin:10px 0 6px;
+    opacity:.9;
+}
+.btn{
+    border:0;
+    border-radius:12px;
+    padding:10px 14px;
+    cursor:pointer;
+    color:var(--text);
+}
+.btn-primary{
+    background:linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.btn-ghost{
+    background:transparent;
+    border:1px solid rgba(87,199,255,.3);
+}
