@@ -1,18 +1,21 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import HomePage from './pages/HomePage';
-import LeaderboardPage from './pages/LeaderboardPage';
+import { Routes, Route, Navigate } from "react-router-dom";
 
-function App() {
+import HomePage from "./pages/HomePage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import LeaderboardPage from "./pages/LeaderboardPage.jsx";
+
+
+import "./styles.css";
+
+export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/leaderboard" element={<LeaderboardPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/leaderboard" element={<LeaderboardPage />} />
+
+
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
-
-export default App;

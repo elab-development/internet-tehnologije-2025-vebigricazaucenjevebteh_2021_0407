@@ -3,9 +3,10 @@ import Button from "./Button";
 
 export default function Navbar() {
   const nav = useNavigate();
+  const token = localStorage.getItem("token");
 
   function logout() {
-    // kasnije ćemo ovde čistiti token
+    localStorage.removeItem("token");
     nav("/login");
   }
 
@@ -17,9 +18,14 @@ export default function Navbar() {
         <div className="nav-links">
           <Link to="/">Home</Link>
           <Link to="/leaderboard">Leaderboard</Link>
+          {!token ? <Link to="/login">Login</Link> : null}
         </div>
 
-        <Button variant="ghost" onClick={logout}>Logout</Button>
+        {token ? (
+          <Button variant="ghost" onClick={logout}>
+            Logout
+          </Button>
+        ) : null}
       </div>
     </div>
   );
