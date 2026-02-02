@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [nivoi, setNivoi] = useState([]);
   const [loading, setLoading] = useState(true);
+  const nav = useNavigate();
+
 
   useEffect(() => {
 
@@ -32,7 +35,8 @@ export default function HomePage() {
             {nivoi.map((n) => (
               <Card key={n.id} title={n.naziv} subtitle={`Težina: ${n.tezina}`}>
                 <p style={{ marginTop: 0, color: "var(--muted)" }}>{n.opis}</p>
-                <Button onClick={() => alert(`Otvaram nivo ${n.id}`)}>Otvori</Button>
+                <Button onClick={() => nav(`/nivos/${n.id}`)}>Otvori</Button>
+
               </Card>
             ))}
           </div>

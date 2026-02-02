@@ -11,7 +11,7 @@ class CheckRole
     {
         $user = $request->user();
 
-        // nije ulogovan -> gost
+        // gost
         if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }

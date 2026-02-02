@@ -55,7 +55,7 @@ class AuthController extends Controller
             ]);
         }
 
-        // opciono: obriši stare tokene
+
         $korisnik->tokens()->delete();
 
         $token = $korisnik->createToken('api-token')->plainTextToken;

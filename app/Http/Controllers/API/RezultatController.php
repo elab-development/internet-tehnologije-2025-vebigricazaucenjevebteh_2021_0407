@@ -58,7 +58,7 @@ class RezultatController extends Controller
         return response()->json(['message' => 'Rezultat obrisan']);
     }
 
-    // BONUS (korisno): leaderboard
+
     public function leaderboard()
     {
         $top = Rezultat::with(['korisnik', 'nivo'])

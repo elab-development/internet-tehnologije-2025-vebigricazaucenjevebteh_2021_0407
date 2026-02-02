@@ -96,3 +96,154 @@ body{
 .nav a:hover{
     text-decoration:underline;
 }
+
+/*nivoi*/
+
+.nivos-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.nivos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+
+.nivo-card {
+  background: var(--panel);
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nivo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.nivo-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.nivo-opis {
+  font-size: 14px;
+  color: var(--muted);
+  flex: 1;
+}
+
+
+.nivo-tezina {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+
+.nivo-btn {
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: white;
+}
+
+
+.nivo-locked {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.nivo-locked .nivo-btn {
+  background: #c7c7c7;
+}
+
+/*pojedinacan nivo*/
+
+.nivo-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.nivo-header {
+  margin-bottom: 16px;
+}
+
+.nivo-header h2 {
+  margin: 0 0 6px;
+}
+
+.nivo-hint {
+  background: #eef2ff;
+  border-left: 4px solid var(--accent);
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+
+.nivo-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.nivo-editor,
+.nivo-preview {
+  background: var(--panel);
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 300px;
+}
+
+.nivo-editor textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  padding: 12px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+
+.nivo-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+}
+
+.nivo-actions button {
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+
+.nivo-validate {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: white;
+}
+
+.nivo-reset {
+  background: #fff;
+  border: 1px solid #d1d5db;
+}
+

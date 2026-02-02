@@ -24,7 +24,7 @@ class HTMLBlockController extends Controller
     {
         $validated = $request->validate([
             'naziv' => 'required|string|max:255',
-            'kod' => 'required|string',      // npr. <div>...</div>
+            'kod' => 'required|string',
             'opis' => 'nullable|string',
             'kategorija' => 'nullable|string|max:255',
         ]);
