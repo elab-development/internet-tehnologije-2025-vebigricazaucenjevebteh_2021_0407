@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
-  const [nivoi, setNivoi] = useState([]);
+  const [nivos, setNivos] = useState([]);
   const [loading, setLoading] = useState(true);
   const nav = useNavigate();
 
@@ -13,7 +13,7 @@ export default function HomePage() {
   useEffect(() => {
 
     setTimeout(() => {
-      setNivoi([
+      setNivos([
         { id: 1, naziv: "Level 1: Basic HTML", opis: "Osnove strukture", tezina: 1 },
         { id: 2, naziv: "Level 2: Lists & Links", opis: "Liste i linkovi", tezina: 2 },
         { id: 3, naziv: "Level 3: Semantic", opis: "Semantički tagovi", tezina: 3 },
@@ -32,7 +32,7 @@ export default function HomePage() {
           <p>Učitavanje...</p>
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
-            {nivoi.map((n) => (
+            {nivos.map((n) => (
               <Card key={n.id} title={n.naziv} subtitle={`Težina: ${n.tezina}`}>
                 <p style={{ marginTop: 0, color: "var(--muted)" }}>{n.opis}</p>
                 <Button onClick={() => nav(`/nivos/${n.id}`)}>Otvori</Button>

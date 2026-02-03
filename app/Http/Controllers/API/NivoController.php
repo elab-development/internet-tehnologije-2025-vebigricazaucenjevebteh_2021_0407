@@ -11,7 +11,7 @@ class NivoController extends Controller
 {
     public function index()
 {
-    return response()->json(
+    /*return response()->json(
         Nivo::where('is_active', true)->get()
     );
 
@@ -21,6 +21,14 @@ class NivoController extends Controller
         ->orderBy('tezina')
         ->orderBy('id')
         ->get();
+        */
+
+  /*return \App\Models\Nivo::all();*/
+
+  $nivos = Nivo::all();
+
+    return response()->json($nivos);
+
 }
 
 

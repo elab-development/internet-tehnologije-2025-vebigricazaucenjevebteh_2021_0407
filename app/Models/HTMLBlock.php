@@ -11,7 +11,7 @@ class HTMLBlock extends Model
 
     protected $fillable = ['naziv', 'kod'];
 
-    public function nivoi()
+    public function nivos()
     {
         return $this->belongsToMany(
             Nivo::class,

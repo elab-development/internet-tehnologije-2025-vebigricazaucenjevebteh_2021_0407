@@ -4,14 +4,14 @@ import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 
 export default function LeaderboardPage() {
-  const nav = useNavigate();          // ✅ hook NA VRHU
-  const [rows, setRows] = useState([]); // ✅ hook NA VRHU
+  const nav = useNavigate();
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      nav("/login");                 // ✅ redirect ako nije ulogovan
+      nav("/login");
       return;
     }
 

@@ -9,7 +9,20 @@ class Nivo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['naziv', 'opis', 'tezina','expected','hint','is_active',];
+     protected $fillable = [
+        'naziv',
+        'opis',
+        'tezina',
+        'expected',
+        'hint',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'expected' => 'array',
+        'level_config' => 'array',
+        'is_active' => 'boolean',
+    ];
 
     public function pokusaji()
     {

@@ -9,9 +9,13 @@ use App\Http\Controllers\API\NivoHTMLBlockController;
 use App\Http\Controllers\API\PokusajController;
 use App\Http\Controllers\API\RezultatController;
 
+Route::get('/test', function () {
+    return response()->json(['ok' => true]);
+});
 
-Route::get('/nivoi', [NivoController::class, 'index']);
-Route::get('/nivoi/{id}', [NivoController::class, 'show']);
+
+Route::get('/nivos', [NivoController::class, 'index']);
+Route::get('/nivos/{id}', [NivoController::class, 'show']);
 Route::get('/html-blocks', [HTMLBlockController::class, 'index']);
 Route::get('/html-blocks/{id}', [HTMLBlockController::class, 'show']);
 Route::get('/leaderboard', [RezultatController::class, 'leaderboard']);
@@ -19,9 +23,9 @@ Route::get('/leaderboard', [RezultatController::class, 'leaderboard']);
 
 Route::middleware(['auth:sanctum', 'tip:admin'])->group(function () {
 
-    Route::post('/nivoi', [NivoController::class, 'store']);
-    Route::put('/nivoi/{id}', [NivoController::class, 'update']);
-    Route::delete('/nivoi/{id}', [NivoController::class, 'destroy']);
+    Route::post('/nivos', [NivoController::class, 'store']);
+    Route::put('/nivos/{id}', [NivoController::class, 'update']);
+    Route::delete('/nivos/{id}', [NivoController::class, 'destroy']);
 
 
     Route::post('/html-blocks', [HTMLBlockController::class, 'store']);
@@ -50,6 +54,7 @@ Route::middleware(['auth:sanctum', 'tip:admin'])->group(function () {
     Route::delete('/rezultati/{id}', [RezultatController::class, 'destroy']);
 
     Route::get('/rezultati', [RezultatController::class, 'index']);
+    Route::post('/nivos/{nivoId}/phases/{phaseId}/complete',[RezultatController::class, 'completePhase']);
     Route::get('/leaderboard', [RezultatController::class, 'leaderboard']);
 });
 
