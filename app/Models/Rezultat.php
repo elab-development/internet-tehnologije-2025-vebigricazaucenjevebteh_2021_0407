@@ -10,18 +10,10 @@ class Rezultat extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pokusaj_id',
-        'bodovi',
-        'uspesno'
+        'korisnik_id',
+        'nivo_id',
+        'phase_id',
+        'poeni',
     ];
-
-    public function korisnik()
-    {
-        return $this->belongsTo(Korisnik::class);
-    }
-
-    public function pokusaj()
-    {
-        return $this->belongsTo(Pokusaj::class);
-    }
 }
+

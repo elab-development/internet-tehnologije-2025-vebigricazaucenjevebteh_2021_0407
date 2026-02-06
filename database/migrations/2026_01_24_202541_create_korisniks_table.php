@@ -10,9 +10,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('korisniks', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+    $table->id();
+    $table->string('ime');
+    $table->string('email')->unique();
+    $table->string('password');
+    $table->string('tip_korisnika')->default('registrovani');
+    $table->timestamps();
+});
     }
 
 

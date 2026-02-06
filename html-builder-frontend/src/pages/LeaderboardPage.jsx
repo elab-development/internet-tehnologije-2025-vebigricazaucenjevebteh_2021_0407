@@ -1,51 +1,64 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 
 export default function LeaderboardPage() {
-  const nav = useNavigate();
   const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    async function load() {
+      try {
+        const res = await fetch("http://127.0.0.1:8000/api/leaderboard", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        });
 
-    if (!token) {
-      nav("/login");
-      return;
+        const data = await res.json();
+        setRows(data);
+      } catch (e) {
+        console.error("Greška pri učitavanju leaderboarda", e);
+      } finally {
+        setLoading(false);
+      }
     }
 
-    // demo podaci
-    setRows([
-      { id: 1, ime: "Anja Milenović", poeni: 1400 },
-      { id: 2, ime: "Jelena Maksimović", poeni: 1270 },
-      { id: 3, ime: "Milan Jovanović", poeni: 1150 },
-    ]);
-  }, [nav]);
+    load();
+  }, []);
 
   return (
-    <>
-      <Navbar />
-      <div className="container" style={{ marginTop: 18 }}>
-        <h2>Leaderboard</h2>
+    <div className="container" style={{ marginTop: 20 }}>
+      <h2>Leaderboard</h2>
 
-        <Card>
-          {rows.map((r, i) => (
+      <Card>
+        {loading && <p>Učitavanje...</p>}
+
+        {!loading && rows.length === 0 && (
+          <p>Nema podataka.</p>
+        )}
+
+        {!loading &&
+          rows.map((r, i) => (
             <div
-              key={r.id}
+              key={r.email || i}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 padding: "10px 0",
-                borderBottom: i === rows.length - 1 ? "none" : "1px solid #eee",
+                borderBottom: "1px solid #eee",
               }}
             >
-              <div>#{i + 1} {r.ime}</div>
-              <div style={{ fontWeight: 600 }}>{r.poeni}</div>
+              <div>
+                #{i + 1} {r.email}
+              </div>
+
+              <div style={{ fontWeight: 600 }}>
+                {r.ukupno_poena} poena
+              </div>
             </div>
           ))}
-        </Card>
-      </div>
-    </>
+      </Card>
+    </div>
   );
 }
+

@@ -12,16 +12,27 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->group('api', [
+
+
+    $middleware->append(
+        \Illuminate\Http\Middleware\HandleCors::class
+    );
+
+
+    $middleware->group('api', [
         \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         'throttle:api',
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
     ]);
+
+
     $middleware->alias([
         'role' => \App\Http\Middleware\CheckRole::class,
-        'tip' => \App\Http\Middleware\TipKorisnikaMiddleware::class,
+        'tip'  => \App\Http\Middleware\TipKorisnikaMiddleware::class,
+        'tip_korisnika' => \App\Http\Middleware\TipKorisnikaMiddleware::class,
     ]);
-    })
+})
+
     ->withExceptions(function (Exceptions $exceptions): void {
 
     })->create();

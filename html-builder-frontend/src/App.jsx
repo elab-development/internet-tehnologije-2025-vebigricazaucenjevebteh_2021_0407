@@ -1,23 +1,38 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import HomePage from "./pages/HomePage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
-import LeaderboardPage from "./pages/LeaderboardPage.jsx";
-import LevelPlayPage from "./pages/LevelPlayPage.jsx";
-
-
-import "./styles.css";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import LevelPlayPage from "./pages/LevelPlayPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import Navbar from "./components/Navbar";
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/leaderboard" element={<LeaderboardPage />} />
+    <>
+      <Navbar />
 
-    <Route path="/nivos/:id" element={<LevelPlayPage />} />
+      <Routes>
 
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+
+
+        <Route
+          path="/leaderboard"
+          element={
+            <ProtectedRoute>
+              <LeaderboardPage />
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route path="/nivos/:id" element={<LevelPlayPage />} />
+
+
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
   );
 }

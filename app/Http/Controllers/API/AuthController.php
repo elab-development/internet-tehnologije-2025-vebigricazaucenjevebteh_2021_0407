@@ -7,6 +7,9 @@ use App\Models\Korisnik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class AuthController extends Controller
 {
@@ -40,37 +43,30 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function login(Request $request)
-    {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+   public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
 
-        $korisnik = Korisnik::where('email', $validated['email'])->first();
+    $user = Korisnik::where('email', $request->email)->first();
 
-        if (!$korisnik || !Hash::check($validated['password'], $korisnik->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['Pogrešan email ili lozinka.'],
-            ]);
-        }
-
-
-        $korisnik->tokens()->delete();
-
-        $token = $korisnik->createToken('api-token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Login uspešan',
-            'korisnik' => [
-                'id' => $korisnik->id,
-                'ime' => $korisnik->ime,
-                'email' => $korisnik->email,
-                'tip_korisnika' => $korisnik->tip_korisnika,
-            ],
-            'token' => $token,
-        ]);
+    if (!$user) {
+        return response()->json(['message' => 'Korisnik ne postoji'], 404);
     }
+
+    if (!Hash::check($request->password, $user->password)) {
+        return response()->json(['message' => 'Lozinka nije dobra'], 401);
+    }
+
+    $token = $user->createToken('auth_token')->plainTextToken;
+
+    return response()->json([
+        'token' => $token,
+        'user' => $user
+    ]);
+}
 
     public function logout(Request $request)
     {

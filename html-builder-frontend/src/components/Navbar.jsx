@@ -3,11 +3,17 @@ import Button from "./Button";
 
 export default function Navbar() {
   const nav = useNavigate();
-  const token = localStorage.getItem("token");
+
+
+  const token = localStorage.getItem("auth_token");
 
   function logout() {
-    localStorage.removeItem("token");
-    nav("/login");
+
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("auth_user");
+
+
+    nav("/");
   }
 
   return (
@@ -18,14 +24,15 @@ export default function Navbar() {
         <div className="nav-links">
           <Link to="/">Home</Link>
           <Link to="/leaderboard">Leaderboard</Link>
-          {!token ? <Link to="/login">Login</Link> : null}
+
+          {!token && <Link to="/login">Login</Link>}
         </div>
 
-        {token ? (
+        {token && (
           <Button variant="ghost" onClick={logout}>
             Logout
           </Button>
-        ) : null}
+        )}
       </div>
     </div>
   );

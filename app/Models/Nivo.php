@@ -9,11 +9,14 @@ class Nivo extends Model
 {
     use HasFactory;
 
-     protected $fillable = [
+    protected $table = 'nivos';
+
+    protected $fillable = [
         'naziv',
         'opis',
         'tezina',
         'expected',
+        'level_config',
         'hint',
         'is_active',
     ];
@@ -24,19 +27,14 @@ class Nivo extends Model
         'is_active' => 'boolean',
     ];
 
-    public function pokusaji()
+    public function phases()
     {
-        return $this->hasMany(Pokusaj::class);
-    }
-
-    public function nivoHTMLBlokovi()
-    {
-        return $this->hasMany(NivoHTMLBlock::class);
+        return $this->hasMany(Phase::class, 'nivo_id')
+                    ->orderBy('order');
     }
 
     public function rezultati()
     {
         return $this->hasMany(Rezultat::class);
     }
-
 }

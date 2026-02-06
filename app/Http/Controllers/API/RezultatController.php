@@ -3,113 +3,88 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rezultat;
 use Illuminate\Http\Request;
+use App\Models\Rezultat;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RezultatController extends Controller
 {
-    public function index()
+
+    public function completePhase(Request $request, $nivoId, $phaseId)
     {
-        return response()->json(
-            Rezultat::with(['korisnik', 'nivo'])->get()
-        );
+        $korisnikId = Auth::id();
+
+
+        $postoji = Rezultat::where('korisnik_id', $korisnikId)
+            ->where('nivo_id', $nivoId)
+            ->where('phase_id', $phaseId)
+            ->exists();
+
+        if ($postoji) {
+            return response()->json([
+                'message' => 'Poeni za ovu fazu su već dodeljeni'
+            ], 200);
+        }
+
+        $rezultat = Rezultat::create([
+            'korisnik_id' => $korisnikId,
+            'nivo_id'     => $nivoId,
+            'phase_id'    => $phaseId,
+            'poeni'       => 100,
+        ]);
+
+        return response()->json([
+            'message' => 'Poeni uspešno upisani',
+            'rezultat' => $rezultat
+        ], 201);
     }
 
-    public function show($id)
-    {
-        $r = Rezultat::with(['korisnik', 'nivo'])->find($id);
-        if (!$r) return response()->json(['message' => 'Rezultat nije pronađen'], 404);
-        return response()->json($r);
-    }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'korisnik_id' => 'required|exists:korisniks,id',
-            'nivo_id' => 'required|exists:nivos,id',
-            'poeni' => 'required|integer|min:0',
-            'vreme_sekunde' => 'nullable|integer|min:0',
+        $request->validate([
+            'nivo_id' => 'required|integer',
+            'phase_id' => 'required|integer',
         ]);
 
-        $rezultat = Rezultat::create($validated);
+        $korisnikId = Auth::id();
+
+        $postoji = Rezultat::where('korisnik_id', $korisnikId)
+            ->where('phase_id', $request->phase_id)
+            ->exists();
+
+        if ($postoji) {
+            return response()->json([
+                'message' => 'Poeni za ovu fazu su već dodeljeni'
+            ], 200);
+        }
+
+        $rezultat = Rezultat::create([
+            'korisnik_id' => $korisnikId,
+            'nivo_id' => $request->nivo_id,
+            'phase_id' => $request->phase_id,
+            'poeni' => 100,
+        ]);
+
         return response()->json($rezultat, 201);
     }
 
-    public function update(Request $request, $id)
+     public function leaderboard()
     {
-        $rezultat = Rezultat::find($id);
-        if (!$rezultat) return response()->json(['message' => 'Rezultat nije pronađen'], 404);
+        $leaderboard = DB::table('rezultats')
+            ->join('korisniks', 'rezultats.korisnik_id', '=', 'korisniks.id')
+            ->select(
+                'korisniks.email',
+                DB::raw('SUM(rezultats.poeni) as ukupno_poena')
+            )
+            ->groupBy('korisniks.email')
+            ->orderByDesc('ukupno_poena')
+            ->get();
 
-        $validated = $request->validate([
-            'poeni' => 'sometimes|required|integer|min:0',
-            'vreme_sekunde' => 'sometimes|nullable|integer|min:0',
-        ]);
-
-        $rezultat->update($validated);
-        return response()->json($rezultat);
+        return response()->json($leaderboard);
     }
-
-    public function destroy($id)
-    {
-        $rezultat = Rezultat::find($id);
-        if (!$rezultat) return response()->json(['message' => 'Rezultat nije pronađen'], 404);
-
-        $rezultat->delete();
-        return response()->json(['message' => 'Rezultat obrisan']);
-    }
-
-
-   public function leaderboard()
-{
-    $rows = DB::table('rezultats as r')
-        ->join('korisniks as k', 'k.id', '=', 'r.korisnik_id')
-        ->select(
-            'k.id as korisnik_id',
-            'k.username',
-            DB::raw('SUM(r.poeni) as total_poeni')
-        )
-        ->groupBy('k.id', 'k.username')
-        ->orderByDesc('total_poeni')
-        ->limit(20)
-        ->get();
-
-    return response()->json($rows);
 }
 
 
-    public function completePhase(Request $request, $nivoId, $phaseId)
-{
-    $validated = $request->validate([
-        'korisnik_id' => 'required|exists:korisniks,id',
-    ]);
 
-    $points = 100;
-
-    DB::table('rezultats')->updateOrInsert(
-        [
-            'korisnik_id' => (int)$validated['korisnik_id'],
-            'nivo_id'     => (int)$nivoId,
-            'phase_id'    => (string)$phaseId,
-        ],
-        [
-            'poeni'       => $points,
-            'updated_at'  => now(),
-            'created_at'  => now(),
-        ]
-    );
-
-    $total = (int) DB::table('rezultats')
-        ->where('korisnik_id', (int)$validated['korisnik_id'])
-        ->sum('poeni');
-
-    return response()->json([
-        'ok' => true,
-        'added_points' => $points,
-        'total_points' => $total,
-        'nivo_id' => (int)$nivoId,
-        'phase_id' => (string)$phaseId,
-    ]);
-}
-
-}
