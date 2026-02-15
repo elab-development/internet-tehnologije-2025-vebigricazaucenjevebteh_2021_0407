@@ -7,10 +7,12 @@ export default function Navbar() {
 
   const token = localStorage.getItem("auth_token");
 
+
   function logout() {
 
     localStorage.removeItem("auth_token");
     localStorage.removeItem("auth_user");
+
 
 
     nav("/");
@@ -26,6 +28,7 @@ export default function Navbar() {
           <Link to="/leaderboard">Leaderboard</Link>
 
           {!token && <Link to="/login">Login</Link>}
+          {!token && <Link to="/register">Register</Link>}
         </div>
 
         {token && (

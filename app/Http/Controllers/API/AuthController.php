@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 
 
@@ -19,14 +20,14 @@ class AuthController extends Controller
             'ime' => 'required|string|max:255',
             'email' => 'required|email|unique:korisniks,email',
             'password' => 'required|string|min:6|confirmed',
-            'tip_korisnika' => 'nullable|in:registrovani,editor,administrator',
+
         ]);
 
         $korisnik = Korisnik::create([
             'ime' => $validated['ime'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'tip_korisnika' => $validated['tip_korisnika'] ?? 'registrovani',
+            'tip_korisnika'=>'registrovani',
         ]);
 
         $token = $korisnik->createToken('api-token')->plainTextToken;
