@@ -1,0 +1,373 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Web Igrica API",
+        "description": "API dokumentacija za projekat iz Internet Tehnologija",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registracija korisnika",
+                "operationId": "registerUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Uspešna registracija"
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Prijava korisnika",
+                "operationId": "loginUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Uspešna prijava"
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Odjava korisnika",
+                "operationId": "logoutUser",
+                "responses": {
+                    "200": {
+                        "description": "Uspešna odjava"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/nivos": {
+            "get": {
+                "tags": [
+                    "Nivoi"
+                ],
+                "summary": "Prikaz svih nivoa",
+                "operationId": "getAllNivos",
+                "responses": {
+                    "200": {
+                        "description": "Lista svih nivoa"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Nivoi"
+                ],
+                "summary": "Kreiranje novog nivoa",
+                "operationId": "createNivo",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "naziv",
+                                    "tezina"
+                                ],
+                                "properties": {
+                                    "naziv": {
+                                        "type": "string",
+                                        "example": "HTML Osnove"
+                                    },
+                                    "opis": {
+                                        "type": "string",
+                                        "example": "Prvi nivo"
+                                    },
+                                    "tezina": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "hint": {
+                                        "type": "string",
+                                        "example": "Koristi <p> tag"
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Nivo kreiran"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/nivos/{id}": {
+            "get": {
+                "tags": [
+                    "Nivoi"
+                ],
+                "summary": "Prikaz jednog nivoa",
+                "operationId": "getSingleNivo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalji nivoa"
+                    },
+                    "404": {
+                        "description": "Nivo nije pronađen"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Nivoi"
+                ],
+                "summary": "Izmena nivoa",
+                "operationId": "updateNivo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Nivo ažuriran"
+                    },
+                    "404": {
+                        "description": "Nivo nije pronađen"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Nivoi"
+                ],
+                "summary": "Brisanje nivoa",
+                "operationId": "deleteNivo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Nivo obrisan"
+                    },
+                    "404": {
+                        "description": "Nivo nije pronađen"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/nivos/{id}/phases": {
+            "get": {
+                "tags": [
+                    "Nivoi"
+                ],
+                "summary": "Prikaz faza određenog nivoa",
+                "operationId": "getNivoPhases",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista faza"
+                    },
+                    "404": {
+                        "description": "Nivo nije pronađen"
+                    }
+                }
+            }
+        },
+        "/api/nivos/{nivoId}/phases/{phaseId}/complete": {
+            "post": {
+                "tags": [
+                    "Rezultati"
+                ],
+                "summary": "Završetak faze i dodela poena",
+                "operationId": "completePhase",
+                "parameters": [
+                    {
+                        "name": "nivoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "phaseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Poeni upisani"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/leaderboard": {
+            "get": {
+                "tags": [
+                    "Leaderboard"
+                ],
+                "summary": "Prikaz leaderboard liste",
+                "operationId": "getLeaderboard",
+                "responses": {
+                    "200": {
+                        "description": "Uspešan odgovor"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Nivoi",
+            "description": "Nivoi"
+        },
+        {
+            "name": "Rezultati",
+            "description": "Rezultati"
+        },
+        {
+            "name": "Leaderboard",
+            "description": "Leaderboard"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

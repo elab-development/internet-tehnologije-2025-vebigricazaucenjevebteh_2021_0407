@@ -7,11 +7,41 @@ use Illuminate\Http\Request;
 use App\Models\Rezultat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use OpenApi\Attributes as OA;
+
+
+
+
+
 
 class RezultatController extends Controller
 {
 
-    public function completePhase(Request $request, $nivoId, $phaseId)
+#[OA\Post(
+    path: "/api/nivos/{nivoId}/phases/{phaseId}/complete",
+    operationId: "completePhase",
+    tags: ["Rezultati"],
+    summary: "Završetak faze i dodela poena",
+    security: [["sanctum" => []]],
+    parameters: [
+        new OA\Parameter(
+            name: "nivoId",
+            in: "path",
+            required: true,
+            schema: new OA\Schema(type: "integer")
+        ),
+        new OA\Parameter(
+            name: "phaseId",
+            in: "path",
+            required: true,
+            schema: new OA\Schema(type: "integer")
+        )
+    ],
+    responses: [
+        new OA\Response(response: 201, description: "Poeni upisani")
+    ]
+)]
+public function completePhase(Request $request, $nivoId, $phaseId)
     {
         $korisnikId = Auth::id();
 
@@ -70,7 +100,20 @@ class RezultatController extends Controller
         return response()->json($rezultat, 201);
     }
 
-     public function leaderboard()
+
+
+
+#[OA\Get(
+    path: "/api/leaderboard",
+    operationId: "getLeaderboard",
+    tags: ["Leaderboard"],
+    summary: "Prikaz leaderboard liste",
+    security: [["sanctum" => []]],
+    responses: [
+        new OA\Response(response: 200, description: "Uspešan odgovor")
+    ]
+)]
+public function leaderboard()
     {
         $leaderboard = DB::table('rezultats')
             ->join('korisniks', 'rezultats.korisnik_id', '=', 'korisniks.id')

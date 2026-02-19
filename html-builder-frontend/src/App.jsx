@@ -7,6 +7,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import LeaderboardPage from "./pages/LeaderboardPage";
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/RegisterPage";
+import DailyChallengePage from "./pages/DailyChallengePage";
+
 
 
 export default function App() {
@@ -19,6 +21,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/daily" element={<DailyChallengePage />} />
 
 
         <Route
@@ -35,6 +38,9 @@ export default function App() {
 
 
         <Route path="*" element={<Navigate to="/" />} />
+
+
+
       </Routes>
     </>
   );

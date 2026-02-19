@@ -8,6 +8,8 @@ use App\Http\Controllers\API\HTMLBlockController;
 use App\Http\Controllers\API\NivoHTMLBlockController;
 use App\Http\Controllers\API\PokusajController;
 use App\Http\Controllers\API\RezultatController;
+use App\Http\Controllers\ExternalApiController;
+
 
 
 Route::get('/test', fn () => response()->json(['ok' => true]));
@@ -86,3 +88,9 @@ Route::middleware(['auth:sanctum', 'tip:administrator'])->group(function () {
 
 Route::get('/html-blocks', [HTMLBlockController::class, 'index']);
 Route::get('/html-blocks/{id}', [HTMLBlockController::class, 'show']);
+
+Route::get('/external/trivia', [ExternalApiController::class, 'getTrivia']);
+Route::get('/external/pexels', [ExternalApiController::class, 'getPexels']);
+Route::get('/daily-trivia', [ExternalApiController::class, 'dailyTrivia']);
+
+

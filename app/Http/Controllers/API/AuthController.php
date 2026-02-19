@@ -9,12 +9,33 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use OpenApi\Attributes as OA;
+
 
 
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+#[OA\Post(
+    path: "/api/auth/register",
+    operationId: "registerUser",
+    tags: ["Auth"],
+    summary: "Registracija korisnika",
+    requestBody: new OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            required: ["email","password"],
+            properties: [
+                new OA\Property(property: "email", type: "string", example: "test@gmail.com"),
+                new OA\Property(property: "password", type: "string", example: "password123")
+            ]
+        )
+    ),
+    responses: [
+        new OA\Response(response: 201, description: "Uspešna registracija")
+    ]
+)]
+public function register(Request $request)
     {
         $validated = $request->validate([
             'ime' => 'required|string|max:255',
@@ -43,8 +64,26 @@ class AuthController extends Controller
             'token' => $token,
         ], 201);
     }
-
-   public function login(Request $request)
+#[OA\Post(
+    path: "/api/auth/login",
+    operationId: "loginUser",
+    tags: ["Auth"],
+    summary: "Prijava korisnika",
+    requestBody: new OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            required: ["email","password"],
+            properties: [
+                new OA\Property(property: "email", type: "string", example: "test@gmail.com"),
+                new OA\Property(property: "password", type: "string", example: "password123")
+            ]
+        )
+    ),
+    responses: [
+        new OA\Response(response: 200, description: "Uspešna prijava")
+    ]
+)]
+ public function login(Request $request)
 {
     $request->validate([
         'email' => 'required|email',
@@ -69,7 +108,17 @@ class AuthController extends Controller
     ]);
 }
 
-    public function logout(Request $request)
+#[OA\Post(
+    path: "/api/auth/logout",
+    operationId: "logoutUser",
+    tags: ["Auth"],
+    summary: "Odjava korisnika",
+    security: [["sanctum" => []]],
+    responses: [
+        new OA\Response(response: 200, description: "Uspešna odjava")
+    ]
+)]
+public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 

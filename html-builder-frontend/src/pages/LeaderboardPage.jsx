@@ -8,7 +8,7 @@ export default function LeaderboardPage() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/leaderboard", {
+        const res = await fetch("http://localhost:8000/api/leaderboard", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
           },

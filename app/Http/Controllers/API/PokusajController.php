@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Pokusaj;
 use Illuminate\Http\Request;
+use OpenApi\Attributes as OA;
+
 
 class PokusajController extends Controller
 {

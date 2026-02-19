@@ -5,14 +5,17 @@ import Card from "../components/Card";
 import Button from "../components/Button";
 import DragDropLevel from "../components/DragDropLevel";
 
-const API_BASE = "http://127.0.0.1:8000/api";
+const API_BASE = "http://localhost:8000/api";
+
 
 export default function LevelPlayPage() {
+console.log("LevelPlayPage renderovan");
   const { id } = useParams();
   const nav = useNavigate();
 
   const [level, setLevel] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [pexelsImage, setPexelsImage] = useState(null);
 
   const isGuest = !localStorage.getItem("auth_token");
 
@@ -23,7 +26,6 @@ export default function LevelPlayPage() {
         if (!r.ok) throw new Error("Nivo nije pronađen");
 
         const data = await r.json();
-
 
         if (
           isGuest &&
@@ -44,6 +46,26 @@ export default function LevelPlayPage() {
 
     load();
   }, [id, isGuest, nav]);
+
+
+  useEffect(() => {
+  console.log("Level ID je:", id);
+
+  fetch(`${API_BASE}/external/pexels?nivo=1`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("Pexels odgovor:", data);
+
+      if (data.photos && data.photos.length > 0) {
+        const randomIndex = Math.floor(Math.random() * data.photos.length);
+        setPexelsImage(data.photos[randomIndex].src.medium);
+      }
+    })
+    .catch(err => console.error("Greška:", err));
+
+}, [id]);
+
+
 
   if (loading) {
     return <p style={{ padding: 20 }}>Učitavanje nivoa...</p>;
@@ -69,6 +91,20 @@ export default function LevelPlayPage() {
           </p>
         )}
       </Card>
+
+
+      {id === "1" && pexelsImage && (
+        <img
+          src={pexelsImage}
+          alt="Level visual"
+          style={{
+            width: "100%",
+            maxHeight: "300px",
+            objectFit: "cover",
+            borderRadius: "12px"
+          }}
+        />
+      )}
 
       <DragDropLevel level={level} />
     </div>
