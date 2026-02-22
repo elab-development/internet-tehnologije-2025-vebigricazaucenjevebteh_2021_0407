@@ -17,6 +17,7 @@ class NivoSeeder extends Seeder
                 'naziv' => 'Level 1 – Basic HTML',
                 'opis' => 'Sastavi osnovnu HTML strukturu stranice.',
                 'tezina' => 1,
+                'tezinaNivoa' => 1,
                 'hint' => 'Head sadrži informacije, body sadrži sadržaj.',
                 'is_active' => true,
                 'level_config' => json_encode([
@@ -58,6 +59,7 @@ class NivoSeeder extends Seeder
                 'naziv' => 'Level 2 – Links and Lists',
                 'opis' => 'Linkovi, liste i pravilno ugnježđivanje.',
                 'tezina' => 2,
+                'tezinaNivoa' => 2,
                 'hint' => 'Link je deo stavke liste.',
                 'is_active' => true,
                 'level_config' => json_encode([
@@ -122,6 +124,7 @@ class NivoSeeder extends Seeder
                 'naziv' => 'Level 3 – Semantic HTML',
                 'opis' => 'Korišćenje semantičkih HTML tagova.',
                 'tezina' => 3,
+                'tezinaNivoa' => 3,
                 'hint' => 'Semantički tag opisuje značenje.',
                 'is_active' => true,
                 'level_config' => json_encode([
