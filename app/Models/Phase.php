@@ -13,20 +13,19 @@ class Phase extends Model
 
     protected $fillable = [
         'nivo_id',
-        'title',
-        'task_text',
-        'palette',
-        'slots',
+        'naziv',
+        'opis',
+        'blocks',
         'rules',
+        'solution',
         'hint',
-        'success',
         'order'
     ];
 
     protected $casts = [
-        'palette' => 'array',
-        'slots'   => 'array',
-        'rules'   => 'array',
+        'blocks' => 'array',
+        'rules' => 'array',
+        'solution' => 'array',
     ];
 
     public function nivo()
