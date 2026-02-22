@@ -5,7 +5,7 @@ import Card from "../components/Card";
 import Button from "../components/Button";
 import DragDropLevel from "../components/DragDropLevel";
 
-const API_BASE = "http://127.0.0.1:8000/api";
+const API_BASE = "https://internet-tehnologije-2025-46xs.onrender.com/api";
 
 export default function LevelPlayPage() {
   const { id } = useParams();
