@@ -15,6 +15,9 @@ export default function HomePage() {
       try {
         const r = await fetch(`${API_BASE}/nivos`);
         const data = await r.json();
+
+        console.log(data);
+
         setNivos(data);
       } catch (e) {
         console.error(e);
