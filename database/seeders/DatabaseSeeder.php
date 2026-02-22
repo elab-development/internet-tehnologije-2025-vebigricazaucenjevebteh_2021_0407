@@ -10,7 +10,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             KorisnikSeeder::class,
-            PhaseSeeder::class,
+            NivoSeeder::class,
+            //PhaseSeeder::class,
             //LevelSeeder::class,
         ]);
     }
