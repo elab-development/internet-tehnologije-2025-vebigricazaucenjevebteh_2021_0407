@@ -3,7 +3,7 @@ import Card from "../components/Card";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
-const API_BASE = "https://internet-tehnologije-2025-46xs.onrender.com/api";
+const API_BASE = "http://localhost:5173";
 
 export default function HomePage() {
   const [nivos, setNivos] = useState([]);

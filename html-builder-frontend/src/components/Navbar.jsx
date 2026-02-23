@@ -26,6 +26,8 @@ export default function Navbar() {
         <div className="nav-links">
           <Link to="/">Home</Link>
           <Link to="/leaderboard">Leaderboard</Link>
+          <Link to="/statistika">Statistika</Link>
+
 
           {!token && <Link to="/login">Login</Link>}
           {!token && <Link to="/register">Register</Link>}

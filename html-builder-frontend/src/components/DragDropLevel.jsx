@@ -261,20 +261,29 @@ export default function DragDropLevel({ level }) {
     if (!token) return;
 
     try {
-      await fetch(
-        `http://127.0.0.1:8000/api/nivos/${level.id}/phases/${phaseIdx}/complete`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ poeni: 100 }),
-        }
-      );
-    } catch (e) {
-      console.error("Upis poena nije uspeo:", e);
+  const res = await fetch(
+    `http://127.0.0.1:8000/api/nivos/${level.id}/phases/${phase.id}/complete`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ poeni: 100 }),
     }
+  );
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error("SERVER ERROR:", text);
+  } else {
+    const data = await res.json();
+    console.log("SUCCESS:", data);
+  }
+
+} catch (e) {
+  console.error("Upis poena nije uspeo:", e);
+}
   }
 
   function nextPhase() {

@@ -23,6 +23,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
+Route::get('/leaderboard', [RezultatController::class, 'leaderboard']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -35,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     );
 
 
-    Route::get('/leaderboard', [RezultatController::class, 'leaderboard']);
+
 });
 
 
@@ -86,3 +87,7 @@ Route::middleware(['auth:sanctum', 'tip:administrator'])->group(function () {
 
 Route::get('/html-blocks', [HTMLBlockController::class, 'index']);
 Route::get('/html-blocks/{id}', [HTMLBlockController::class, 'show']);
+
+
+
+Route::get('/statistika/bodovi', [RezultatController::class, 'statistika']);
