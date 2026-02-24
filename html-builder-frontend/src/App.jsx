@@ -15,7 +15,6 @@ export default function App() {
     <>
       <Navbar />
 
-       <h1 style={{color: "red"}}>TEST APP</h1>
       <Routes>
 
         <Route path="/" element={<HomePage />} />

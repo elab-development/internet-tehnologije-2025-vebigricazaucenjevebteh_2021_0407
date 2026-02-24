@@ -10,6 +10,8 @@ use App\Http\Controllers\API\PokusajController;
 use App\Http\Controllers\API\RezultatController;
 
 
+
+
 Route::get('/test', fn () => response()->json(['ok' => true]));
 
 
@@ -90,4 +92,6 @@ Route::get('/html-blocks/{id}', [HTMLBlockController::class, 'show']);
 
 
 
-Route::get('/statistika/bodovi', [RezultatController::class, 'statistika']);
+Route::get('/statistika/bodovi', [RezultatController::class, 'bodovi']);
+
+

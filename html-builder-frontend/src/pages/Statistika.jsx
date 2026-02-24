@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+const API_BASE = "http://localhost:8000/api";
+
 export default function Statistika() {
 
   useEffect(() => {

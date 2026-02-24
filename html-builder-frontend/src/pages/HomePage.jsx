@@ -3,7 +3,7 @@ import Card from "../components/Card";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
-const API_BASE = "http://localhost:5173";
+const API_BASE = "http://localhost:8000/api";
 
 export default function HomePage() {
   const [nivos, setNivos] = useState([]);
