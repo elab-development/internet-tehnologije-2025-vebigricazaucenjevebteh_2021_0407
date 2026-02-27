@@ -1,16 +1,43 @@
-# React + Vite
+# Frontend – React aplikacija
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Opis projekta
+Frontend aplikacija omogućava korisnicima interakciju sa sistemom putem grafičkog interfejsa. 
+Komunicira sa backend REST API‑jem.
 
-Currently, two official plugins are available:
+## Tehnologije
+- React
+- Node.js
+- Vite
+- Docker
+- HTML/CSS
+- fetch API
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Pokretanje projekta (lokalno)
 
-## React Compiler
+1. Klonirati repozitorijum:
+   git clone <https://github.com/elab-development/internet-tehnologije-2025-vebigricazaucenjevebteh_2021_0407.git>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. Ući u frontend folder:
+   cd html-builder-frontend
 
-## Expanding the ESLint configuration
+3. Instalirati zavisnosti:
+   npm install
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+4. Pokrenuti aplikaciju:
+   npm start
+
+Aplikacija će biti dostupna na:
+http://localhost:5173
+
+## Build verzija
+
+Za produkcioni build:
+npm run build
+
+## Komunikacija sa backend‑om
+
+Frontend šalje HTTP zahteve ka backend API‑ju, npr:
+GET /api/nivos
+GET /api/korisnik
+
+Podaci se razmenjuju u JSON formatu.
