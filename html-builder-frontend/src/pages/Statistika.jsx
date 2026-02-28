@@ -15,9 +15,9 @@ export default function Statistika() {
     document.body.appendChild(script);
 
     function drawChart() {
-      fetch("https://internet-tehnologije-2025-46xs.onrender.com/api/statistika/bodovi")
-        .then(res => res.json())
-        .then(data => {
+  fetch(`${API_BASE}/statistika/bodovi`)
+    .then(res => res.json())
+    .then(data => {
 
           const chartData = [['Korisnik', 'Ukupno bodova']];
 

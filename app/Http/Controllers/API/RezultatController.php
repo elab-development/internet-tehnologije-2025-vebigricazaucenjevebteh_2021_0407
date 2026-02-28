@@ -169,6 +169,15 @@ public function statistika()
 
     return response()->json($podaci);
 }
+
+public function bodovi()
+{
+    return \App\Models\Rezultat::selectRaw('korisniks.ime as ime, SUM(rezultats.poeni) as ukupno_bodova')
+        ->join('korisniks', 'rezultats.korisnik_id', '=', 'korisniks.id')
+        ->groupBy('korisniks.ime')
+        ->orderByDesc('ukupno_bodova')
+        ->get();
+}
 }
 
 

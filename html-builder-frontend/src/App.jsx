@@ -8,6 +8,7 @@ import LeaderboardPage from "./pages/LeaderboardPage";
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/RegisterPage";
 import Statistika from "./pages/Statistika";
+import DailyPage from "./pages/DailyPage";
 
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/statistika" element={<Statistika />} />
+        <Route path="/daily" element={<DailyPage />} />
 
 
         <Route

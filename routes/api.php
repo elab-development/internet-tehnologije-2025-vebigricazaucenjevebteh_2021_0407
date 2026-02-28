@@ -8,7 +8,7 @@ use App\Http\Controllers\API\HTMLBlockController;
 use App\Http\Controllers\API\NivoHTMLBlockController;
 use App\Http\Controllers\API\PokusajController;
 use App\Http\Controllers\API\RezultatController;
-
+use App\Http\Controllers\API\DailyController;
 
 
 
@@ -94,4 +94,4 @@ Route::get('/html-blocks/{id}', [HTMLBlockController::class, 'show']);
 
 Route::get('/statistika/bodovi', [RezultatController::class, 'bodovi']);
 
-
+Route::get('/daily', [DailyController::class, 'index']);

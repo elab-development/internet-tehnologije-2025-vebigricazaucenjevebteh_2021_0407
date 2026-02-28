@@ -31,7 +31,10 @@ export default function HomePage() {
 
   return (
     <div className="container" style={{ marginTop: 18 }}>
+
       <h2>Nivoi</h2>
+
+          <button onClick={() => nav("/daily")}>Daily izazov</button>
 
       {loading ? (
         <p>Učitavanje...</p>
