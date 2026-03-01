@@ -5,6 +5,21 @@ const API_BASE = "http://localhost:8000/api";
 export default function DailyPage() {
   const [daily, setDaily] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState(null);
+  const [result, setResult] = useState(null);
+
+
+const handleAnswer = (answer) => {
+  if (selected) return;
+
+  setSelected(answer);
+
+  if (answer === daily.correct_answer) {
+    setResult("Tačno!");
+  } else {
+    setResult("Netačno!");
+  }
+};
 
   useEffect(() => {
     fetch(`${API_BASE}/daily`)
@@ -34,18 +49,31 @@ export default function DailyPage() {
 
       <div style={{ marginTop: 20 }}>
         {daily.answers.map((a, index) => (
-          <button
-            key={index}
-            style={{
-              display: "block",
-              marginBottom: 10,
-              padding: 10,
-              width: "300px"
-            }}
-          >
-            {a}
-          </button>
+           <button
+    key={index}
+    onClick={() => handleAnswer(a)}
+    style={{
+      display: "block",
+      marginBottom: 10,
+      padding: 10,
+      width: "300px",
+      backgroundColor:
+        selected === a
+          ? a === daily.correct_answer
+            ? "#4CAF50"
+            : "#f44336"
+          : "#eee"
+    }}
+  >
+    {a}
+  </button>
+
         ))}
+        {result && (
+  <h3 style={{ marginTop: 20 }}>
+    {result}
+  </h3>
+)}
       </div>
     </div>
   );
